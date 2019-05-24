@@ -1,0 +1,35 @@
+.space {
+    clear: both;
+    display: block;
+    width: 100%;
+    margin: 3px 0px 3px 0px;
+    padding: 3px 0px 3px 0px;
+}
+
+.float_img {
+    clear: both;
+    float: left;
+    margin:0px 15px 5px 0px;
+}
+
+.everyday {
+    color: #9A3476;
+    font-size: 1.2em;
+}
+
+embed{
+    width: 80%;
+    height: 120px;
+}
+
+div.bloc {
+    width: 960px;
+    margin: 0 auto;
+    font-size: 14px;
+    text-align: left;
+    font: normal 1em arial;
+    color: #000;
+    background: #eeddfd;
+}
+
+
