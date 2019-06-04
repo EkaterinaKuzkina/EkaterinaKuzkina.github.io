@@ -9,7 +9,7 @@ import Persik from './panels/Persik';
 
 import logo from './img/taurus.png';
 import Papa from 'papaparse'
-import { FormLayout, FormLayoutGroup, Input } from '@vkontakte/vkui';
+import { FormLayout, FormLayoutGroup, Input, Radio } from '@vkontakte/vkui';
 
 
 
@@ -62,26 +62,23 @@ import { FormLayout, FormLayoutGroup, Input } from '@vkontakte/vkui';
 
 
 
-function  Print_1(value){
-    console.log(value)
-}
  
-function Calculate_IMT(weight, height, age){
+function Calculate_IMT(weight, height, age, gender){
     if (isNaN(weight) || isNaN(height)|| isNaN(age) )  return "Здесь будет ваше количество каллорий"
-    else return 10*weight + 6.25*height - 5* age + 5;
+    else return 10*weight + 6.25*height - 5* age + gender;
 }
 
 class App extends React.Component {
   
   constructor() {
     super();
-    this.state = {weight: '', height: '', age: ''};
+    this.state = { weight: '', height: '', age: '', radio: '-161'};
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange (evt) {
    this.setState({ [evt.target.name]: evt.target.value });
-  }
+  }  
  
 
     render() {
@@ -90,22 +87,23 @@ class App extends React.Component {
                     <Panel id="mainPanel">
                         <PanelHeader>Example</PanelHeader>
                         <Group >
+             
                         <Div>
-                            <Button size="xl" level="secondary">Get Your predskazanie</Button>
-                        </Div>
-                        <Div>
-                           You personal Horosckope, Dear Deva for today
+                           Введите необходимые данные, каллории посчитаются автоматически:)
                          </Div>
-                        <Div>
-                            {Print_1()}
-                        </Div>
                         <FormLayout>
                           <FormLayoutGroup top="Калькулятор каллорий" bottom="Поля вес, рост и возраст могут содержать только цифры.">
+                             <div style={{paddingLeft: 12, color: 'gray' }} onChange={this.onRadiochange}>
+                             Ваш пол:
+                              <Radio name="radio" value="-161"  checked={this.state.radio === "-161"} onChange={this.handleChange} >Женщина</Radio>
+                              <Radio name="radio" value="5" checked={this.state.radio === "5"} onChange={this.handleChange}>Мужчина</Radio>
+                            </div>
                             <Input type="text" placeholder="Ваш Возраст" name = "age" onChange={this.handleChange}/>
                             <Input type="text" placeholder="Ваш Вес в кг" name = "weight" onChange={this.handleChange}/>
                             <Input type="text" placeholder="Ваш Рост в см" name = "height" onChange={this.handleChange}/>
                             <Div>
-                            {Calculate_IMT(parseInt(this.state.weight), parseInt(this.state.height), parseInt(this.state.age))}
+                            
+                            {Calculate_IMT(parseInt(this.state.weight), parseInt(this.state.height), parseInt(this.state.age), parseInt(this.state.radio))}
                             </Div>
                
                           </FormLayoutGroup>
