@@ -65,26 +65,23 @@ import { FormLayout, FormLayoutGroup, Input } from '@vkontakte/vkui';
 function  Print_1(value){
     console.log(value)
 }
-
-function Calculate_IMT(weight){
-    if (isNaN(weight)) return "Here will be your MIT"
-    else return weight*5;
+ 
+function Calculate_IMT(weight, height, age){
+    if (isNaN(weight) || isNaN(height)|| isNaN(age) )  return "Здесь будет ваше количество каллорий"
+    else return 10*weight + 6.25*height - 5* age + 5;
 }
 
 class App extends React.Component {
   
-  constructor(props) {
-    super(props);
-    this.state = {value1: ''};
+  constructor() {
+    super();
+    this.state = {weight: '', height: '', age: ''};
     this.handleChange = this.handleChange.bind(this);
-
   }
 
-  handleChange(event) {
-    this.setState({value1: event.target.value});
-    console.log(this.state.value1)
+  handleChange (evt) {
+   this.setState({ [evt.target.name]: evt.target.value });
   }
-
  
 
     render() {
@@ -103,21 +100,17 @@ class App extends React.Component {
                             {Print_1()}
                         </Div>
                         <FormLayout>
-                          <FormLayoutGroup top="Пароль" bottom="Пароль может содержать только латинские буквы и цифры.">
-                            <Input type="text" placeholder="Ваш Рес" value={this.state.value1} onChange={this.handleChange}/>
-                            <Input type="text" placeholder="Ваш Рост" value={this.state.value1} onChange={this.handleChange}/>
+                          <FormLayoutGroup top="Калькулятор каллорий" bottom="Поля вес, рост и возраст могут содержать только цифры.">
+                            <Input type="text" placeholder="Ваш Возраст" name = "age" onChange={this.handleChange}/>
+                            <Input type="text" placeholder="Ваш Вес в кг" name = "weight" onChange={this.handleChange}/>
+                            <Input type="text" placeholder="Ваш Рост в см" name = "height" onChange={this.handleChange}/>
                             <Div>
-                            {Calculate_IMT(parseInt(this.state.value1))}
+                            {Calculate_IMT(parseInt(this.state.weight), parseInt(this.state.height), parseInt(this.state.age))}
                             </Div>
                
                           </FormLayoutGroup>
                         </FormLayout>
-                        
-                 
-                 
-            //                         
-            <img src={logo} alt="Logo" style={{width: 350,  heigh: 350, opacity: 0.1}} /> 
-                        </Group>
+                      </Group>
                     </Panel>
                 </View>
                 );
