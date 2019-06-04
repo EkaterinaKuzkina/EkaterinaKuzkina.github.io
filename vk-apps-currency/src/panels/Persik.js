@@ -26,4 +26,5 @@ Persik.propTypes = {
 	go: PropTypes.func.isRequired,
 };
 
+console.log("HJH")
 export default Persik;

@@ -1,15 +1,20 @@
 import React from 'react';
 import connect from '@vkontakte/vkui-connect';
-import { Div, Group, Panel, PanelHeader, View } from '@vkontakte/vkui';
+import { Div, Group, Panel, PanelHeader, View, Button } from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
 
-//import ReactDOM from 'react-dom'
-//import CSVReader from 'react-csv-reader'
-//import Papa from 'papaparse'
-//import csv from 'csv';
-
+import * as d3 from "d3";
 import Home from './panels/Home';
 import Persik from './panels/Persik';
+
+import logo from './img/taurus.png';
+import Papa from 'papaparse'
+import { FormLayout, FormLayoutGroup, Input } from '@vkontakte/vkui';
+
+
+
+
+// import { Text, ImageBackground, StyleSheet, Image } from 'react-native';
 
 //class App extends React.Component {
 //	constructor(props) {
@@ -54,119 +59,64 @@ import Persik from './panels/Persik';
 
 //export default App;
 
-//function myFunction() {
-//    var data = Papa.parse('kozerog.csv',
-//               {delimiter:',', dynamicTyping:true, skipEmptyLines:true
-//               });
-//    console.log(data)
-//}
-//
-//myFunction()
-
-//var reader = new FileReader();
-//var fileToRead = 'data.csv';
-//
-//// attach event, that will be fired, when read is end
-//reader.addEventListener("loadend", function() {
-//                        // reader.result contains the contents of blob as a typed array
-//                        // we insert content of file in DOM here
-//                        document.getElementById('file').innerText = reader.result;
-//                        });
-//
-//// start reading a loaded file
-//
-//
-//reader.readAsText(fileToRead);
 
 
-//
 
-//var CSVToArray = function ( strData, strDelimiter ){
-//    
-//    strDelimiter = (strDelimiter || ",");
-//    
-//    var objPattern = new RegExp(
-//                                (
-//                                 "(\\" + strDelimiter + "|\\r?\\n|\\r|^)" +
-//                                 "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
-//                                 "([^\"\\" + strDelimiter + "\\r\\n]*))"
-//                                 ),
-//                                "gi"
-//                                );
-//    
-//    var arrData = [[]];
-//    var arrMatches = null;
-//    
-//    while (arrMatches = objPattern.exec( strData )){
-//        var strMatchedDelimiter = arrMatches[ 1 ];
-//        if (
-//            strMatchedDelimiter.length &&
-//            strMatchedDelimiter !== strDelimiter
-//            ){
-//            arrData.push( [] );
-//        }
-//        var strMatchedValue;
-//        if (arrMatches[ 2 ]){
-//            strMatchedValue = arrMatches[ 2 ].replace(
-//                                                      new RegExp( "\"\"", "g" ),
-//                                                      "\""
-//                                                      );
-//        } else {
-//            strMatchedValue = arrMatches[ 3 ];
-//        }
-//        arrData[ arrData.length - 1 ].push( strMatchedValue );
-//    }
-//    console.log(arrData)
-//    return( arrData );
-//}
-//
-//var data ="data,csv,dhff,jggjf";
-//CSVToArray(data, ",");
-//var data_parse = Papa.parse(data);
-//console.log(data_parse)
+function  Print_1(value){
+    console.log(value)
+}
 
-//Papa.parse("/Users/ekaterinakuzkina/Desktop/data_download/oven.csv", {
-//           download: true,
-//           step: function(row) {
-//           console.log("Row:", row.data);
-//           },
-//           complete: function() {
-//           console.log("All done!");
-//           }
-//           });
-
-//import { csv } from 'd3-fetch';
-////import url from '/Users/ekaterinakuzkina/Desktop/data_download/oven.csv';
-//
-//csv("data.csv").then(function(data) {
-//      console.log(data); // [{"Hello": "world"}, …]
-//      });
-
-//var txt = '';
-//var xmlhttp = new XMLHttpRequest();
-//xmlhttp.onreadystatechange = function(){
-//    if(xmlhttp.status == 200 && xmlhttp.readyState == 4){
-//        txt = xmlhttp.responseText;
-//    }
-//};
-//xmlhttp.open("GET","new.txt",true);
-//console.log(xmlhttp.send());
-
-var fs = require('fs');
-var textByLine = fs.readFileSync('dancers.txt').toString().split("\n");
-
+function Calculate_IMT(weight){
+    if (isNaN(weight)) return "Here will be your MIT"
+    else return weight*5;
+}
 
 class App extends React.Component {
-    
+  
+  constructor(props) {
+    super(props);
+    this.state = {value1: ''};
+    this.handleChange = this.handleChange.bind(this);
+
+  }
+
+  handleChange(event) {
+    this.setState({value1: event.target.value});
+    console.log(this.state.value1)
+  }
+
+ 
+
     render() {
         return (
                 <View activePanel="mainPanel">
                     <Panel id="mainPanel">
                         <PanelHeader>Example</PanelHeader>
-                        <Group>
+                        <Group >
                         <Div>
-                            Hello World
+                            <Button size="xl" level="secondary">Get Your predskazanie</Button>
                         </Div>
+                        <Div>
+                           You personal Horosckope, Dear Deva for today
+                         </Div>
+                        <Div>
+                            {Print_1()}
+                        </Div>
+                        <FormLayout>
+                          <FormLayoutGroup top="Пароль" bottom="Пароль может содержать только латинские буквы и цифры.">
+                            <Input type="text" placeholder="Ваш Рес" value={this.state.value1} onChange={this.handleChange}/>
+                            <Input type="text" placeholder="Ваш Рост" value={this.state.value1} onChange={this.handleChange}/>
+                            <Div>
+                            {Calculate_IMT(parseInt(this.state.value1))}
+                            </Div>
+               
+                          </FormLayoutGroup>
+                        </FormLayout>
+                        
+                 
+                 
+            //                         
+            <img src={logo} alt="Logo" style={{width: 350,  heigh: 350, opacity: 0.1}} /> 
                         </Group>
                     </Panel>
                 </View>
