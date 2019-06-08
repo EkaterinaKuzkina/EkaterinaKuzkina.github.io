@@ -15,9 +15,9 @@ function Calculate_IMT(weight, height, age, gender, active){
     else {
       var callor;
       if (gender === 'female'){
-        callor = 4.35*weight*2.20462 + 4.7*height*0.393701 - 4.7* age + 655;
+        callor = 9.6*weight + 1.8*height - 4.7* age + 655;
       }
-      else callor = 6.23*weight*2.20462 + 12.7*height*0.393701 - 6.8* age + 66;
+      else callor = 13.7*weight + 5*height - 6.8* age + 66;
     }
     return Math.round(callor*active - 500);
 }
@@ -54,19 +54,20 @@ class Harrison extends React.Component {
                               <Radio name="radio" value="male" checked={this.state.radio === "male"} onChange={this.handleChange}>Мужчина</Radio>
                               Уровень активности:
                               <Radio name="radio_active" value="1.2"  checked={this.state.radio_active === "1.2"} onChange={this.handleChange} >Сидячий</Radio>
-                              <Radio name="radio_active" value="1.375" checked={this.state.radio_active === "1.375"} onChange={this.handleChange}>Слегка активный</Radio>
+                              <Radio name="radio_active" value="1.38" checked={this.state.radio_active === "1.38"} onChange={this.handleChange}>Слегка активный</Radio>
                               <Radio name="radio_active" value="1.55"  checked={this.state.radio_active === "1.55"} onChange={this.handleChange} >Умеренно активный</Radio>
-                              <Radio name="radio_active" value="1.725"  checked={this.state.radio_active === "1.725"} onChange={this.handleChange} >Очень активный</Radio>
+                              <Radio name="radio_active" value="1.73"  checked={this.state.radio_active === "1.73"} onChange={this.handleChange} >Очень активный</Radio>
                             </div>
 
                             <Input type="text" placeholder="Ваш Возраст" name = "age" onChange={this.handleChange}/>
                             <Input type="text" placeholder="Ваш Вес в кг" name = "weight" onChange={this.handleChange}/>
                             <Input type="text" placeholder="Ваш Рост в см" name = "height" onChange={this.handleChange}/>
                             <Div>
-                            Количество калорий на день: {callorii}  <br/>
-                            Белков (35%): {CheckNan(callorii*0.35/4)} г<br/>
-                            Жиров (40%): {CheckNan(callorii*0.4/9)} г<br/>
-                            Углеводов (25%):{CheckNan(callorii*0.25/4)} г<br/>
+                            Калории нижний предел: {callorii- 250}   <br/>
+                            Калории вехний предел: {callorii + 100}  <br/>
+                            Белков (30%): {CheckNan(callorii*0.3/4)} г<br/>
+                            Жиров (45%): {CheckNan(callorii*0.45/9)} г<br/>
+                            Углеводов (15%):{CheckNan(callorii*0.15/4)} г<br/>
                             </Div>
                           </FormLayoutGroup>
                         </FormLayout>
