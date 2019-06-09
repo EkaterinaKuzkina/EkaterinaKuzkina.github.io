@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import connect from '@vkontakte/vkui-connect';
 import App from './App';
-import KuperaIndex from './calculators/KuperaIndex'
+import TotalCalculator from './calculators/TotalCalculator'
 // import registerServiceWorker from './sw';
 
 // Init VK App
@@ -16,4 +16,4 @@ connect.send('VKWebAppInit', {});
 // Подробнее про сервис воркеры можно почитать тут — https://vk.cc/8MHpmT 
 // registerServiceWorker();
 
-ReactDOM.render(<KuperaIndex />, document.getElementById('root'));
+ReactDOM.render(<TotalCalculator />, document.getElementById('root'));
